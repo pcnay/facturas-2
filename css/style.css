@@ -1,0 +1,83 @@
+*
+{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;  
+}
+
+/* Agregando las franjas Azules y Centrado de texto */
+h3
+{
+  font-family:'Arial';
+  font-size:25pt;
+  letter-spacing:1px;
+  width:100%;
+  background:#2980b9;
+  padding:15px;
+  color:#FFF;
+  text-align:center;
+  text-transform:uppercase;
+}
+
+/* https://htmlcolorcodes.com/es/ */
+/* Centra el contenido de la pantalla de Login */
+#container
+{
+  background:#5d6d7e;
+  width:100%;
+  height:100vh;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Aplicando estilos al formulario del Login*/
+#container form
+{
+  background:#FFF;
+  width:400px;
+  padding:10px;
+}
+
+/* Centrar la Imagen*/
+#container form img
+{
+  margin:15px auto;
+  text-align:center;
+  display:block;
+}
+/* Modificando los Input del formulario Login*/
+#container form input
+{
+  width:90%;
+  padding:5px;
+  font-size:16pt;
+  display:block;
+  margin:20px auto;
+  border-radius:5px;
+  border:1px solid #85929e;
+  text-align:center; 
+}
+
+/* Modificando el boton de tipo "Submit" */
+#container form input[type="submit"]
+{
+  background:#52be80;
+  padding:10px;
+  color:#FFF;
+  letter-spacing: 1px;
+  border:0;
+  cursor:pointer;
+}
+
+/* Mensaje para cuando estan incorrecto Usuario o Contraseña */
+.alert
+{
+  font-family:'Arial';
+  font-size:16px;
+  text-align:center;
+}
