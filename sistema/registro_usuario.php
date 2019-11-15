@@ -1,4 +1,6 @@
 <?php 
+  include "../conexion.php";
+  
   if (!empty($_POST))
   {
     $alert = '';
@@ -7,13 +9,11 @@
       $alert = '<p class="msg_error">Todos los campos son obligatorios </p>';
     }
     else
-    {
-      include "../conexion.php";
-      
+    {          
       $nombre = $_POST['nombre'];
       $correo = $_POST['correo'];
       $usuario = $_POST['usuario'];
-      $clave = $_POST['clave'];
+      $clave = MD5($_POST['clave']);
       $rol = $_POST['rol'];
 
       // Verificar si existe correo y usuario 
@@ -56,7 +56,7 @@
     <div class="form_register">
       <h1>Registro Usuarios</h1>
       <hr>
-      <div class="alert"></div>
+      <div class="alert"><?php echo isset($alert)? $alert : ''?></div>
       <!-- Con "action" vacio se autoprocesara el formulario, es decir se iniciara desde el incio del archivo cuando se oprime el boton "Crear Usuario" -->
       <form action ="" method="post">
         <label for="nombre">Nombre</label>
@@ -68,10 +68,30 @@
         <label for="clave">Clave</label>
         <input type="password" name="clave" id = "clave" placeholder="Clave de Acceso">
         <label for="rol">Tipo Usuario</label>
+
+        <?php 
+          $query_rol = mysqli_query($conection,"SELECT * FROM rol");
+          $result_rol = mysqli_num_rows($query_rol);
+        ?>
         <select name="rol" id="rol">
-          <option value="1">Administrador</option>
-          <option value="2">Supervisor</option>
-          <option value="3">Vendendor</option>
+          <?php 
+          //print ($result_rol);
+          //exit;
+
+            if ($result_rol >0)
+            {
+              while ($rol = mysqli_fetch_array($query_rol))
+              {
+          ?>
+                <!-- <option value="2">Supervisor</option> -->
+                <option value="<?php echo $rol['idrol'];?>"><?php echo $rol['rol']; ?></option>
+          <?php 
+              } // while ($rol = mysqli_fetch_array($query_rol)) 
+
+            } // if ($result_rol >0)
+
+          ?>
+          
         </select>
 
         <input type="submit" value="Crear Usuario" class="btn_save">
