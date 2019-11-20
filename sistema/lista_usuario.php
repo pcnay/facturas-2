@@ -21,6 +21,7 @@
         <th>ID</th>
         <th>NOMBRE</th>
         <th>CORREO</th>
+        <th>USUARIO</th>
         <th>ROL</th>
         <th>ACCIONES</th>        
       </tr>
@@ -37,9 +38,11 @@
               <td><?php echo $data['idusuario']; ?></td>
               <td><?php echo $data['nombre']; ?></td>
               <td><?php echo $data['correo']; ?></td>
+              <td><?php echo $data['usuario']; ?></td>
               <td><?php echo $data['rol']; ?></td>
               <td>
-              <a class="link_edit" href="">Editar</a>
+              <!-- Se pasa el "Id" del usuario al archivo "editar_usuario"-->
+              <a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>">Editar</a>
               |
               <a class="link_delete" href="">Eliminar</a>
               </td>

@@ -296,3 +296,9 @@ table td
 {
 	color:#f26b6b;
 }
+
+/* Es el select donde se acutaliza los datos del usuario, la primera opcion no la mostrara */ 
+.notitemOne option:first-child
+{
+	display:none;
+}
