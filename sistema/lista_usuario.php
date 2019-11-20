@@ -27,7 +27,7 @@
       </tr>
 
       <?php
-        $query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol");
+        $query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus=1");
         $result = mysqli_num_rows($query);
         if ($result >0)
         {
@@ -41,10 +41,14 @@
               <td><?php echo $data['usuario']; ?></td>
               <td><?php echo $data['rol']; ?></td>
               <td>
-              <!-- Se pasa el "Id" del usuario al archivo "editar_usuario"-->
-              <a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>">Editar</a>
-              |
-              <a class="link_delete" href="">Eliminar</a>
+                <!-- Se pasa el "Id" del usuario al archivo "editar_usuario"-->
+                <a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>">Editar</a>
+                
+                <!-- NO permite borrar al Usuario Administrador principal. -->
+                <?php if ($data['idusuario'] != 1) { ?>
+                    |              
+                    <a class="link_delete" href="eliminar_usuario.php?id=<?php echo $data['idusuario']; ?>">Eliminar</a>
+                <?php } ?>
               </td>
             </tr>
       <?php      
