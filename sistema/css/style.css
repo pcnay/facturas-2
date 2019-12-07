@@ -342,4 +342,43 @@ table td
 	border:0;
 }
 	
+/* Estilos al Paginador */
+.paginador ul
+{
+	padding:15px;
+	list-style:none;
+	background:#fff;
+	margin-top:15px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content:flex-end; /* Justificando el paginador a la derecha */
+}
 
+/* Crea los recuadros en cada uno de los numeros del paginador. */ 
+.paginador a, .pageSelected
+{
+	color:#428bca;
+	border:1px solid #ddd;
+	padding:5px;
+	display:inline-block;
+	font-size:14px;
+	text-align:center;
+	width:35px;	
+}
+
+.paginador a:hover
+{
+	background:#ddd;
+}
+
+/* Recuadro Azul en la opcion seleccionada. */
+.pageSelected
+{
+	color:#FFF;
+	background:#428bca;
+	border:1px solid #428bca; 
+}
+ 

@@ -4,6 +4,13 @@
   // Para borrar el usuario.
   if (!empty($_POST))
   {
+    // Si cambian el valor desde "Inspeccionar elemento".
+    if ($_POST['idusuario'] == 1)
+    {
+      header ("location:lista_usuario.php");
+      exit;
+    }
+     
     $idusuario = $_POST['idusuario'];
     //$query_delete = mysqli_query($conection,"DELETE FROM usuario  WHERE idusuario=$idusuario");
     $query_delete = mysqli_query($conection,"UPDATE usuario SET estatus = 0 WHERE idusuario = $idusuario");

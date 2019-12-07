@@ -27,7 +27,28 @@
       </tr>
 
       <?php
-        $query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus=1");
+
+        // Seccion del paginador 
+        $sql_registe = mysqli_query ($conection,"SELECT COUNT(*) AS total_registro FROM usuario WHERE estatus=1");
+        $result_register = mysqli_fetch_array($sql_registe);
+        $total_registro = $result_register['total_registro'];
+        $por_pagina = 5;
+
+        // Este valor es que se pasara por la URL, cuando se oprime un número del paginador.
+        if (empty ($_GET['pagina']))
+        {
+          $pagina = 1;
+        }
+        else
+        {
+          $pagina = $_GET['pagina'];
+        }
+        $desde = ($pagina-1)*$por_pagina;
+        $total_paginas = ceil($total_registro/$por_pagina);        
+        
+        $query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus = 1 ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
+
+
         $result = mysqli_num_rows($query);
         if ($result >0)
         {
@@ -58,6 +79,21 @@
       ?>
 
     </table>
+
+    <!-- Es la sección de Páginador. -->
+    <div class="paginador">
+      <ul>
+        <li><a href="#">|<</a></li>
+        <li><a href="#"><<</a></li>
+        <li class="pageSelected" >1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">>></a></li>
+        <li><a href="#">>|</a></li>
+      </ul>
+    </div>
 
 	</section>
 	
