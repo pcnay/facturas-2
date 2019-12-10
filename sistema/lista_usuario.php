@@ -32,7 +32,7 @@
         $sql_registe = mysqli_query ($conection,"SELECT COUNT(*) AS total_registro FROM usuario WHERE estatus=1");
         $result_register = mysqli_fetch_array($sql_registe);
         $total_registro = $result_register['total_registro'];
-        $por_pagina = 5;
+        $por_pagina = 3;
 
         // Este valor es que se pasara por la URL, cuando se oprime un número del paginador.
         if (empty ($_GET['pagina']))
@@ -85,11 +85,13 @@
       <ul>
         <li><a href="#">|<</a></li>
         <li><a href="#"><<</a></li>
-        <li class="pageSelected" >1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
+        <?php 
+          for ($i=1;$i<=$total_paginas;$i++)
+          {
+            // pagina = Esta variable es la que se pasa en la URL.
+            echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+          }
+        ?>
         <li><a href="#">>></a></li>
         <li><a href="#">>|</a></li>
       </ul>
