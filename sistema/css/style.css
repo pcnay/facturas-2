@@ -382,3 +382,26 @@ table td
 	border:1px solid #428bca; 
 }
  
+/* Aplicando estilos a formulario de Busqueda */
+.form_search
+{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	float:right; /* Mueva a la derecha el formulario de Busqueda */
+	background:initial; /* NO tiene fondo */
+	padding:10px;
+	border-radius:10px;
+}
+/* Aplicando estilos al boton del formulario*/
+.form_search .btn_search
+{
+	background:#1faac8;
+	color:#fff;
+	padding:0 20px;
+	border:0;
+	cursor:pointer;
+	margin-left:10px;
+}  

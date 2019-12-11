@@ -14,12 +14,22 @@
 	<?php include "include/header.php" ?>
 
 	<section id="container">
+    <!-- Obtener el valor de la variable del formulario "Buscador" -->
+    <?php 
+      // Obtiene el valor tanto de GET y POST, la convierte a minuscula
+      $busqueda = strtolower($_REQUEST['busqueda']);
+      if (empty($busqueda))
+      { 
+        header ("location: lista_usuarios.php");
+      }
+
+    ?>
 		<h1>LISTA DE USUARIOS</h1>
     <a href="registro_usuario.php" class="btn_new">Crear Usuario</a>
 
     <!-- Sección para Buscar usuarios -->
     <form action="buscar_usuario.php" method="get" class="form_search">
-      <input type="text" name ="busqueda" id = "busqueda" placeholder = "Buscar" >
+      <input type="text" name ="busqueda" id = "busqueda" placeholder = "Buscar" value="<?php echo $busqueda; ?>" >
       <input type="submit" value="Buscar" class = "btn_search">
     </form>
 
@@ -36,7 +46,28 @@
       <?php
 
         // Seccion del paginador 
-        $sql_registe = mysqli_query ($conection,"SELECT COUNT(*) AS total_registro FROM usuario WHERE estatus=1");
+        //$sql_registe = mysqli_query ($conection,"SELECT COUNT(*) AS total_registro FROM usuario WHERE estatus=1");
+        $rol = '';
+        if ($busqueda == 'administrador')
+        {
+          $rol = "OR rol LIKE '%1%'";
+        }
+        else if ($busqueda == 'supervisor')
+        {
+          $rol = "OR rol LIKE '%2%'";
+        }
+        else if ($busqueda == 'vendedor')
+        {
+          $rol = "OR rol LIKE '%3%'";
+        }
+         
+        $sql_registe = mysqli_query ($conection,"SELECT COUNT(*) AS total_registro FROM usuario WHERE (     idusuario LIKE '%$busqueda%' OR 
+         nombre LIKE '%$busqueda%' OR 
+         correo LIKE '%$busqueda%' OR 
+         usuario LIKE '%$busqueda%'
+         $rol ) 
+         AND estatus = 1");
+
         $result_register = mysqli_fetch_array($sql_registe);
         $total_registro = $result_register['total_registro'];
         $por_pagina = 3;
@@ -51,10 +82,16 @@
           $pagina = $_GET['pagina'];
         }
         $desde = ($pagina-1)*$por_pagina;
-        $total_paginas = ceil($total_registro/$por_pagina);        
-        
-        $query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus = 1 ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
+        $total_paginas = ceil($total_registro/$por_pagina);     
 
+        $query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE (
+        u.idusuario LIKE '%$busqueda%' OR 
+         u.nombre LIKE '%$busqueda%' OR 
+         u.correo LIKE '%$busqueda%' OR 
+         u.usuario LIKE '%$busqueda%' OR
+         r.rol LIKE '%$busqueda%') 
+         AND (u.estatus = 1) ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
+         
 
         $result = mysqli_num_rows($query);
         if ($result >0)
