@@ -83,17 +83,38 @@
     <!-- Es la sección de Páginador. -->
     <div class="paginador">
       <ul>
-        <li><a href="#">|<</a></li>
-        <li><a href="#"><<</a></li>
+      <!-- Desaparece estos numeros de paginador cuando esta en el primero. -->
+      <?php 
+        if ($pagina != 1)
+          {
+      ?>      
+            <li><a href="?pagina=<?php echo 1; ?>">|<</a></li>
+            <li><a href="?pagina=<?php echo $pagina-1; ?>"><<</a></li>
+
         <?php 
+          }
           for ($i=1;$i<=$total_paginas;$i++)
           {
-            // pagina = Esta variable es la que se pasa en la URL.
-            echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+            // Para selecccionar el número de página.
+            if ($i == $pagina)
+            {
+              // pagina = Esta variable es la que se pasa en la URL.
+              echo '<li class="pageSelected">'.$i.'</li>';
+            }
+            else
+            {
+              echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+            }            
           }
+          // Desaparece los últimos botones del paginador cuando sea la última página.
+
+          if ($pagina != $total_paginas)
+          {          
         ?>
-        <li><a href="#">>></a></li>
-        <li><a href="#">>|</a></li>
+        <li><a href="?pagina=<?php echo $pagina+1; ?>">>></a></li>
+        <li><a href="?pagina=<?php echo $total_paginas; ?>">>|</a></li>
+    <?php }?>
+
       </ul>
     </div>
 
