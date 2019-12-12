@@ -125,43 +125,50 @@
     </table>
 
     <!-- Es la sección de Páginador. -->
-    <div class="paginador">
-      <ul>
-      <!-- Desaparece estos numeros de paginador cuando esta en el primero. -->
-      <?php 
-        if ($pagina != 1)
-          {
-      ?>      
-            <li><a href="?pagina=<?php echo 1; ?>">|<</a></li>
-            <li><a href="?pagina=<?php echo $pagina-1; ?>"><<</a></li>
-
+    <!-- Si no existen registros, no mostrara el paginador. -->
+    <?php 
+      if ($total_registro != 0)
+      {      
+    ?>
+      <div class="paginador">
+        <ul>
+        <!-- Desaparece estos numeros de paginador cuando esta en el primero. -->
         <?php 
-          }
-          for ($i=1;$i<=$total_paginas;$i++)
-          {
-            // Para selecccionar el número de página.
-            if ($i == $pagina)
+          if ($pagina != 1)
             {
-              // pagina = Esta variable es la que se pasa en la URL.
-              echo '<li class="pageSelected">'.$i.'</li>';
+        ?>      
+              <li><a href="?pagina=<?php echo 1; ?>&busqueda=<?php echo $busqueda; ?>">|<</a></li>
+              <li><a href="?pagina=<?php echo $pagina-1; ?>&busqueda=<?php echo $busqueda; ?>"><<</a></li>
+
+          <?php 
             }
-            else
+            for ($i=1;$i<=$total_paginas;$i++)
             {
-              echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
-            }            
-          }
-          // Desaparece los últimos botones del paginador cuando sea la última página.
+              // Para selecccionar el número de página.
+              if ($i == $pagina)
+              {
+                // pagina = Esta variable es la que se pasa en la URL.
+                echo '<li class="pageSelected">'.$i.'</li>';
+              }
+              else
+              {
+                echo '<li><a href="?pagina='.$i.'&busqueda='.$busqueda.'">'.$i.'</a></li>';
+              }            
+            }
+            // Desaparece los últimos botones del paginador cuando sea la última página.
 
-          if ($pagina != $total_paginas)
-          {          
-        ?>
-        <li><a href="?pagina=<?php echo $pagina+1; ?>">>></a></li>
-        <li><a href="?pagina=<?php echo $total_paginas; ?>">>|</a></li>
-    <?php }?>
+            if ($pagina != $total_paginas)
+            {          
+          ?>
+          <li><a href="?pagina=<?php echo $pagina+1; ?>&busqueda=<?php echo $busqueda; ?>">>></a></li>
+          <li><a href="?pagina=<?php echo $total_paginas; ?>&busqueda=<?php echo $busqueda; ?>">>|</a></li>
+      <?php }?>
 
-      </ul>
-    </div>
+        </ul>
+      </div>
 
+  <?php }  //if ($total_registro != 0) ?>
+  
 	</section>
 	
 	<?php include "include/footer.php"; ?>
