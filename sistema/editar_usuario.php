@@ -53,16 +53,20 @@
       }
 
     }
+    mysqli_close($conection);
   
   }
   // Si no existe el "id" que se mando atráves de la URL, regresa al listado de usuario. 
   if (empty($_GET['id']))
   {
     header ('Location:lista_usuario.php');
+    mysqli_close($conection);
   }
   // Validar que el "id" existe en la base de datos.
   $iduser = $_GET['id'];
   $sql = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario, (u.rol) as idrol, (r.rol) as rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $iduser ");
+
+  mysqli_close($conection);
 
   $result_sql = mysqli_num_rows($sql);
   if ($result_sql == 0)
@@ -96,14 +100,8 @@
       {
         $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
       }
-
     }
-
-
   } // if ($result_sql == 0)
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +137,9 @@
         <label for="rol">Tipo Usuario</label>
 
         <?php 
+          include "../conexion.php";
           $query_rol = mysqli_query($conection,"SELECT * FROM rol");
+          mysqli_close($conection);
           $result_rol = mysqli_num_rows($query_rol);
         ?>
 

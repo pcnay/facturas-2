@@ -21,6 +21,7 @@
       if (empty($busqueda))
       { 
         header ("location: lista_usuarios.php");
+        mysqli_close($conection);
       }
 
     ?>
@@ -92,7 +93,8 @@
          r.rol LIKE '%$busqueda%') 
          AND (u.estatus = 1) ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
          
-
+         mysqli_close($conection);
+         
         $result = mysqli_num_rows($query);
         if ($result >0)
         {

@@ -37,6 +37,7 @@
 
         // Seccion del paginador 
         $sql_registe = mysqli_query ($conection,"SELECT COUNT(*) AS total_registro FROM usuario WHERE estatus=1");
+
         $result_register = mysqli_fetch_array($sql_registe);
         $total_registro = $result_register['total_registro'];
         $por_pagina = 3;
@@ -55,7 +56,8 @@
         
         $query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus = 1 ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
 
-
+        mysqli_close($conection);
+        
         $result = mysqli_num_rows($query);
         if ($result >0)
         {
