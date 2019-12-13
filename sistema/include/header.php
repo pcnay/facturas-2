@@ -1,6 +1,6 @@
 <?php
-
-  session_start();
+	// session_start();
+  
   // Valida que existe sesion para mostrar el menu del sistema. 
   if (empty($_SESSION['active']))
   {

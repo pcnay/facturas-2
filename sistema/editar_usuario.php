@@ -1,4 +1,10 @@
 <?php 
+  session_start();
+  if ($_SESSION['rol'] != 1)
+  {
+    header ("location: ./");
+  }
+
   include "../conexion.php";
   
   // Como se autoprocesa, es decir vuelve a ejecutarse desde el principio cuando se oprime el boton de "Actualizar Usuario"
